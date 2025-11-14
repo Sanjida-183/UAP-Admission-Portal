@@ -1,0 +1,178 @@
+<!-- templates/admission/student_login.html -->
+{% extends "admission/base.html" %}
+{% load static %}
+
+{% block title %}Student Login - UAP{% endblock %}
+
+{% block extra_css %}
+<style>
+.login-container {
+    max-width: 400px;
+    margin: 80px auto 40px auto;
+    padding: 30px;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header h2 {
+    color: var(--uap-maroon);
+    margin-bottom: 10px;
+}
+
+.login-header p {
+    color: #666;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--uap-maroon);
+    box-shadow: 0 0 0 2px rgba(39, 132, 232, 0.1);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background: var(--uap-maroon);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background: #1a6dc1;
+}
+
+.login-links {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-links a {
+    color: var(--uap-maroon);
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    background: #ffe6e6;
+    color: #d63031;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #d63031;
+}
+
+.success-message {
+    background: #e6f7e6;
+    color: #27ae60;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #27ae60;
+}
+
+.alert {
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.alert-error {
+    background: #ffe6e6;
+    color: #d63031;
+    border-left: 4px solid #d63031;
+}
+
+.alert-success {
+    background: #e6f7e6;
+    color: #27ae60;
+    border-left: 4px solid #27ae60;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-header">
+        <h2>Student Login</h2>
+        <p>Access your admission portal</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if form.errors %}
+        <div class="alert alert-error">
+            Please enter a correct username and password. Note that both fields are case-sensitive.
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_username">Username or Student ID</label>
+            <input type="text" name="username" id="id_username" placeholder="Enter your username or student ID" required>
+        </div>
+
+        <div class="form-group">
+            <label for="id_password">Password</label>
+            <input type="password" name="password" id="id_password" placeholder="Enter your password" required>
+        </div>
+
+        <button type="submit" class="btn-login">Login</button>
+        
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+    <div class="login-links">
+        <p>
+            <a href="{% url 'admission:student_register' %}">Create New Account</a> | 
+            <a href="#">Forgot Password?</a>
+        </p>
+        <p>
+            <a href="{% url 'admission:index' %}">← Back to Home</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
