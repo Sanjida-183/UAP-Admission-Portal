@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block title %}Student Login - UAP{% endblock %}
+
 {% block extra_css %}
 <style>
 .login-container {
@@ -12,7 +13,6 @@
     background: var(--card);
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    position: relative;
 }
 
 .login-header {
@@ -32,7 +32,6 @@
 
 .form-group {
     margin-bottom: 20px;
-    position: relative;
 }
 
 .form-group label {
@@ -48,30 +47,13 @@
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 16px;
-    transition: all 0.3s;
-    box-sizing: border-box;
+    transition: border-color 0.3s;
 }
 
 .form-group input:focus {
     outline: none;
     border-color: var(--uap-maroon);
     box-shadow: 0 0 0 2px rgba(39, 132, 232, 0.1);
-}
-
-.form-group input.error {
-    border-color: #d63031;
-    box-shadow: 0 0 0 2px rgba(214, 48, 49, 0.1);
-}
-
-.password-toggle {
-    position: absolute;
-    right: 12px;
-    top: 38px;
-    background: none;
-    border: none;
-    color: #666;
-    cursor: pointer;
-    font-size: 14px;
 }
 
 .btn-login {
@@ -85,22 +67,10 @@
     cursor: pointer;
     transition: background 0.3s;
     margin-top: 10px;
-    font-weight: 600;
 }
 
 .btn-login:hover {
     background: #1a6dc1;
-    transform: translateY(-1px);
-}
-
-.btn-login:active {
-    transform: translateY(0);
-}
-
-.btn-login:disabled {
-    background: #cccccc;
-    cursor: not-allowed;
-    transform: none;
 }
 
 .login-links {
@@ -112,12 +82,10 @@
     color: var(--uap-maroon);
     text-decoration: none;
     margin: 0 10px;
-    transition: color 0.3s;
 }
 
 .login-links a:hover {
     text-decoration: underline;
-    color: #1a6dc1;
 }
 
 .error-message {
@@ -142,7 +110,6 @@
     padding: 12px;
     border-radius: 6px;
     margin-bottom: 20px;
-    font-size: 14px;
 }
 
 .alert-error {
@@ -155,25 +122,6 @@
     background: #e6f7e6;
     color: #27ae60;
     border-left: 4px solid #27ae60;
-}
-
-.alert-info {
-    background: #e6f3ff;
-    color: #2980b9;
-    border-left: 4px solid #2980b9;
-}
-
-.loading {
-    opacity: 0.7;
-    pointer-events: none;
-}
-
-/* Responsive adjustments */
-@media (max-width: 480px) {
-    .login-container {
-        margin: 40px 20px;
-        padding: 20px;
-    }
 }
 </style>
 {% endblock %}
@@ -195,47 +143,24 @@
 
     {% if form.errors %}
         <div class="alert alert-error">
-            <strong>Login failed!</strong> Please check your credentials and try again.
-            {% if form.non_field_errors %}
-                <div style="margin-top: 8px; font-size: 13px;">
-                    {{ form.non_field_errors }}
-                </div>
-            {% endif %}
+            Please enter a correct username and password. Note that both fields are case-sensitive.
         </div>
     {% endif %}
 
-    <form method="post" id="login-form">
+    <form method="post">
         {% csrf_token %}
         
         <div class="form-group">
             <label for="id_username">Username or Student ID</label>
-            <input type="text" name="username" id="id_username" 
-                   placeholder="Enter your username or student ID" 
-                   value="{{ form.username.value|default:'' }}" 
-                   required autofocus>
-            {% if form.username.errors %}
-                <div style="color: #d63031; font-size: 13px; margin-top: 5px;">
-                    {{ form.username.errors }}
-                </div>
-            {% endif %}
+            <input type="text" name="username" id="id_username" placeholder="Enter your username or student ID" required>
         </div>
 
         <div class="form-group">
             <label for="id_password">Password</label>
-            <input type="password" name="password" id="id_password" 
-                   placeholder="Enter your password" required>
-            <button type="button" class="password-toggle" id="password-toggle">Show</button>
-            {% if form.password.errors %}
-                <div style="color: #d63031; font-size: 13px; margin-top: 5px;">
-                    {{ form.password.errors }}
-                </div>
-            {% endif %}
+            <input type="password" name="password" id="id_password" placeholder="Enter your password" required>
         </div>
 
-        <button type="submit" class="btn-login" id="login-btn">
-            <span id="btn-text">Login</span>
-            <div id="btn-spinner" style="display: none;">Logging in...</div>
-        </button>
+        <button type="submit" class="btn-login">Login</button>
         
         <input type="hidden" name="next" value="{{ next }}">
     </form>
@@ -243,63 +168,11 @@
     <div class="login-links">
         <p>
             <a href="{% url 'admission:student_register' %}">Create New Account</a> | 
-            <a href="{% url 'admission:password_reset' %}">Forgot Password?</a>
+            <a href="#">Forgot Password?</a>
         </p>
         <p>
             <a href="{% url 'admission:index' %}">← Back to Home</a>
         </p>
     </div>
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Password toggle functionality
-    const passwordToggle = document.getElementById('password-toggle');
-    const passwordInput = document.getElementById('id_password');
-    
-    if (passwordToggle && passwordInput) {
-        passwordToggle.addEventListener('click', function() {
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                passwordToggle.textContent = 'Hide';
-            } else {
-                passwordInput.type = 'password';
-                passwordToggle.textContent = 'Show';
-            }
-        });
-    }
-
-    // Form submission handling
-    const loginForm = document.getElementById('login-form');
-    const loginBtn = document.getElementById('login-btn');
-    const btnText = document.getElementById('btn-text');
-    const btnSpinner = document.getElementById('btn-spinner');
-    
-    if (loginForm) {
-        loginForm.addEventListener('submit', function() {
-            // Show loading state
-            loginBtn.disabled = true;
-            btnText.style.display = 'none';
-            btnSpinner.style.display = 'block';
-            loginForm.classList.add('loading');
-        });
-    }
-
-    // Auto-focus on username field
-    const usernameField = document.getElementById('id_username');
-    if (usernameField) {
-        usernameField.focus();
-    }
-
-    // Clear error styling on input
-    const inputs = document.querySelectorAll('input');
-    inputs.forEach(input => {
-        input.addEventListener('input', function() {
-            this.classList.remove('error');
-        });
-    });
-});
-</script>
 {% endblock %}
