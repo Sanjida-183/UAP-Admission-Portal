@@ -22,4 +22,3 @@ class ApplicationAdmin(admin.ModelAdmin):
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ('id','application','amount','status','paid_at')
-
