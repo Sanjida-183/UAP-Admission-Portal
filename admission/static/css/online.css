@@ -1,20 +1,22 @@
 :root {
-    --primary: #0b63b3;
-    --accent: #0077d6;
+    --primary: #8b5cf6;
+    --accent: #a78bfa;
     --card: #fff;
-    --muted: #f6f9fd;
+    --muted: #f8f7ff;
     --radius: 10px;
 }
 
 * {
-    box-sizing: border-box
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
     margin: 0;
     background: var(--muted);
-    color: #123
+    color: #333;
 }
 
 .online-header {
@@ -26,15 +28,25 @@ body {
     color: #fff;
     position: sticky;
     top: 0;
-    z-index: 40
+    z-index: 40;
 }
 
 .online-header img {
     height: 55px;
     margin-right: 12px;
     border-radius: 6px;
-    background: #569be9;
-    padding: 3px
+    background: #a78bfa;
+    padding: 3px;
+}
+
+.online-header .left {
+    display: flex;
+    align-items: center;
+}
+
+.online-header .right {
+    display: flex;
+    gap: 10px;
 }
 
 .btn {
@@ -42,45 +54,68 @@ body {
     border-radius: 8px;
     border: 0;
     cursor: pointer;
-    background: #eee
+    background: #eee;
+    font-family: inherit;
+    transition: all 0.3s ease;
 }
 
 .btn.primary {
     background: var(--primary);
-    color: #fff
+    color: #fff;
+}
+
+.btn.primary:hover {
+    background: #7c3aed;
+    transform: translateY(-1px);
 }
 
 .btn.ghost {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff
+    color: #fff;
+}
+
+.btn.ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .container {
     max-width: 1100px;
     margin: 20px auto;
-    padding: 12px
+    padding: 12px;
 }
 
 .card {
     background: var(--card);
     padding: 16px;
     border-radius: var(--radius);
-    box-shadow: 0 8px 30px rgba(17, 40, 80, 0.04);
-    margin-bottom: 16px
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.08);
+    margin-bottom: 16px;
+}
+
+.card h2 {
+    color: var(--primary);
+    margin-bottom: 15px;
 }
 
 .row {
     display: flex;
     gap: 12px;
     align-items: center;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px
+    gap: 12px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
 }
 
 label input,
@@ -90,29 +125,40 @@ input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
-    border-radius: 8px
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+label input:focus,
+label textarea:focus,
+select:focus,
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
 }
 
 textarea {
     min-height: 70px;
-    resize: vertical
+    resize: vertical;
 }
 
 .form-actions {
     margin-top: 12px;
     display: flex;
-    gap: 8px
+    gap: 8px;
 }
 
 .uploads {
     display: flex;
     gap: 12px;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 .upload-card {
     flex: 1;
-    min-width: 220px
+    min-width: 220px;
 }
 
 .drop {
@@ -122,26 +168,27 @@ textarea {
     text-align: center;
     cursor: pointer;
     position: relative;
-    background: linear-gradient(180deg, #fff, #fbfdff)
+    background: linear-gradient(180deg, #fff, #fbfdff);
+    transition: all 0.3s ease;
 }
 
 .drop input {
     position: absolute;
     inset: 0;
     opacity: 0;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .drop.drag {
     border-color: var(--primary);
-    background: #f0f8ff
+    background: #f5f3ff;
 }
 
 .preview-row {
     display: flex;
     gap: 8px;
     margin-top: 8px;
-    flex-wrap: wrap
+    flex-wrap: wrap;
 }
 
 .preview-row img,
@@ -151,7 +198,7 @@ textarea {
     border: 1px solid #e8eefb;
     padding: 6px;
     background: #fff;
-    object-fit: cover
+    object-fit: cover;
 }
 
 .progress {
@@ -159,101 +206,106 @@ textarea {
     background: #f1f5fb;
     border-radius: 6px;
     margin-top: 8px;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .progress>div {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, var(--primary), #00aaff);
-    transition: width .2s
+    background: linear-gradient(90deg, var(--primary), #a78bfa);
+    transition: width 0.2s;
 }
 
 .fee-box {
     margin-left: 12px;
     padding: 10px;
     border-radius: 8px;
-    background: #f7fbff;
-    border: 1px solid rgba(11, 99, 179, 0.08)
+    background: #f5f3ff;
+    border: 1px solid rgba(139, 92, 246, 0.1);
 }
 
 .fee-box div:first-child {
     font-size: 13px;
-    color: #666
+    color: #666;
 }
 
 .fee-box #appFee {
     font-weight: 700;
     font-size: 20px;
-    margin-top: 6px
+    margin-top: 6px;
+    color: var(--primary);
 }
 
 .dept-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
-    margin-top: 8px
+    margin-top: 8px;
 }
 
 .dept-item {
     padding: 10px;
     border-radius: 8px;
     background: #fff;
-    border: 1px solid #eef4fb
+    border: 1px solid #f3f0ff;
 }
 
 .dept-item h4 {
-    margin: 0 0 6px 0
+    margin: 0 0 6px 0;
+    color: var(--primary);
 }
 
 .dept-item .seats {
     font-weight: 700;
-    color: var(--primary)
+    color: var(--primary);
 }
 
 .table-wrap {
     overflow: auto;
-    margin-top: 12px
+    margin-top: 12px;
 }
 
 table {
     width: 100%;
-    border-collapse: collapse
+    border-collapse: collapse;
 }
 
 th,
 td {
     padding: 8px;
     border-bottom: 1px solid #eee;
-    text-align: left
+    text-align: left;
 }
 
 th {
-    background: #fafcff
+    background: #fafcff;
+    color: var(--primary);
+    font-weight: 600;
 }
 
 .teachers-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
-    margin-top: 12px
+    margin-top: 12px;
 }
 
 .teacher-card {
     padding: 12px;
     border-radius: 8px;
     background: #fff;
-    border: 1px solid #eef4fb
+    border: 1px solid #f3f0ff;
 }
 
 .teacher-card h4 {
-    margin: 0 0 6px 0
+    margin: 0 0 6px 0;
+    color: var(--primary);
 }
 
 .teacher-card p {
     margin: 4px 0;
     font-size: 13px;
-    color: #444
+    color: #444;
 }
 
 .modal {
@@ -264,20 +316,21 @@ th {
     justify-content: center;
     background: rgba(0, 0, 0, 0.45);
     z-index: 80;
-    padding: 20px
+    padding: 20px;
 }
 
 .modal[aria-hidden="false"] {
-    display: flex
+    display: flex;
 }
 
 .modal-inner {
-    background: #8decf3;
+    background: #fff;
     padding: 14px;
     border-radius: 10px;
     max-width: 700px;
     width: 100%;
-    position: relative
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .modal-close {
@@ -287,27 +340,32 @@ th {
     border: 0;
     background: transparent;
     font-size: 22px;
-    cursor: pointer
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-close:hover {
+    color: #333;
 }
 
 .timeline {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    margin-top: 12px
+    margin-top: 12px;
 }
 
 .timeline .step {
     padding: 8px;
     border-radius: 8px;
-    border: 1px solid #eef4fb;
-    background: #fafcff
+    border: 1px solid #f3f0ff;
+    background: #fafcff;
 }
 
 .timeline .step.active {
     border-color: var(--primary);
-    box-shadow: 0 6px 20px rgba(11, 99, 179, 0.06);
-    background: linear-gradient(90deg, #f7fbff, #fff)
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.1);
+    background: linear-gradient(90deg, #f5f3ff, #fff);
 }
 
 .toasts {
@@ -317,7 +375,7 @@ th {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    z-index: 120
+    z-index: 120;
 }
 
 .toast {
@@ -325,26 +383,33 @@ th {
     border-radius: 8px;
     color: #fff;
     background: rgba(0, 0, 0, 0.7);
-    opacity: 0.95
+    opacity: 0.95;
 }
 
-@media (max-width:900px) {
+@media (max-width: 900px) {
     .grid {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
     }
     .teachers-grid {
-        grid-template-columns: repeat(2, 1fr)
+        grid-template-columns: repeat(2, 1fr);
     }
     .dept-list {
-        grid-template-columns: repeat(2, 1fr)
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .online-header {
+        flex-direction: column;
+        gap: 10px;
     }
 }
 
-@media (max-width:560px) {
+@media (max-width: 560px) {
     .teachers-grid {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
     }
     .dept-list {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
+    }
+    .uploads {
+        flex-direction: column;
     }
 }
