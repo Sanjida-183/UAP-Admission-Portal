@@ -1,20 +1,22 @@
 :root {
-    --blue-1: #0b63b3;
-    --blue-2: #0077d6;
-    --bg: #f2f8ff;
+    --light-purple-1: #8b5cf6;
+    --light-purple-2: #a78bfa;
+    --bg: #f8f7ff;
     --card: #ffffff;
     --radius: 10px;
 }
 
 * {
-    box-sizing: border-box
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
     margin: 0;
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
     background: var(--bg);
-    color: #123
+    color: #333;
 }
 
 .adm-header {
@@ -22,59 +24,60 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 14px 20px;
-    background: linear-gradient(90deg, var(--blue-1), var(--blue-2));
+    background: linear-gradient(90deg, var(--light-purple-1), var(--light-purple-2));
     color: #fff;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 40
+    z-index: 40;
 }
 
 .adm-header .logo {
     display: flex;
     gap: 12px;
-    align-items: center
+    align-items: center;
 }
 
 .adm-header img {
     height: 48px;
     border-radius: 6px;
-    background: #2784e8;
-    padding: 3px
+    background: #a78bfa;
+    padding: 3px;
 }
 
 .adm-main {
     max-width: 1100px;
     margin: 110px auto;
-    padding: 18px
+    padding: 18px;
 }
 
 .adm-intro {
     background: var(--card);
     padding: 18px;
     border-radius: var(--radius);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06)
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.1);
 }
 
 .calc-wrap {
     display: grid;
     grid-template-columns: 1fr 360px;
     gap: 18px;
-    margin-top: 18px
+    margin-top: 18px;
 }
 
 .calc-card {
     background: var(--card);
     padding: 18px;
     border-radius: var(--radius);
-    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.06)
+    box-shadow: 0 10px 36px rgba(139, 92, 246, 0.08);
 }
 
 .calc-card label {
     display: block;
     margin-top: 10px;
-    font-weight: 600
+    font-weight: 600;
+    color: #555;
 }
 
 .calc-card input,
@@ -82,56 +85,81 @@ body {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #ddd
+    border: 1px solid #ddd;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.calc-card input:focus,
+.calc-card select:focus {
+    outline: none;
+    border-color: var(--light-purple-1);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
 }
 
 .calc-actions {
     display: flex;
     gap: 8px;
-    margin-top: 12px
+    margin-top: 12px;
 }
 
 .calc-result {
     margin-top: 12px;
     padding: 12px;
     border-radius: 8px;
-    background: #f7fbff;
-    border: 1px solid rgba(0, 120, 220, 0.06)
+    background: #f5f3ff;
+    border: 1px solid rgba(139, 92, 246, 0.1);
 }
 
 .adm-info {
     background: var(--card);
     padding: 18px;
     border-radius: var(--radius);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04)
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.06);
+}
+
+.adm-info h3 {
+    color: var(--light-purple-1);
+    margin-bottom: 10px;
+}
+
+.adm-info ul {
+    padding-left: 20px;
+    color: #666;
+}
+
+.adm-info li {
+    margin-bottom: 5px;
 }
 
 .btn {
     padding: 8px 12px;
     border-radius: 8px;
     border: 0;
-    cursor: pointer
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    transition: all 0.3s ease;
 }
 
 .btn.primary {
-    background: var(--blue-2);
-    color: #fff
+    background: var(--light-purple-2);
+    color: #fff;
+}
+
+.btn.primary:hover {
+    background: var(--light-purple-1);
+    transform: translateY(-1px);
 }
 
 .btn.ghost {
     background: transparent;
     border: 1px solid #fff;
-    color: #fff
+    color: #fff;
 }
 
-@media (max-width:900px) {
-    .calc-wrap {
-        grid-template-columns: 1fr
-    }
-    .adm-main {
-        padding: 14px;
-        margin-top: 120px
-    }
+.btn.ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-loader {
@@ -143,16 +171,46 @@ body {
     z-index: 120;
     pointer-events: none;
     opacity: 0;
-    transition: opacity .2s
+    transition: opacity 0.2s;
 }
 
 .nav-loader[aria-hidden="false"] {
-    opacity: 1
+    opacity: 1;
 }
 
 .nav-loader-bar {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #00c2ff, #0055ff);
-    transition: width .6s ease
+    background: linear-gradient(90deg, #a78bfa, #8b5cf6);
+    transition: width 0.6s ease;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+    .calc-wrap {
+        grid-template-columns: 1fr;
+    }
+    .adm-main {
+        padding: 14px;
+        margin-top: 120px;
+    }
+}
+
+@media (max-width: 600px) {
+    .adm-header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
 }
